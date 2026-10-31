@@ -25,7 +25,7 @@ jobs:
           # Paste the long string you copied from GCP here:
           workload_identity_provider: 'projects/16101582717/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
           service_account: 'git-hub-actions-bot@project-c1d6d306-4dd0-4dc9-b67.iam.gserviceaccount.com'
-          
+
       - name: 3. Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
@@ -51,7 +51,7 @@ jobs:
 
       - name: 7. Deploy Frontend YAML to Cluster
         run: |
-          kubectl apply -f kubernetes/angular-frontend.yaml
+          kubectl apply -f frontend.yaml
           
           # Force Kubernetes to drop the old Pods and pull the new image
           kubectl rollout restart deployment reqflow-angular-frontend
