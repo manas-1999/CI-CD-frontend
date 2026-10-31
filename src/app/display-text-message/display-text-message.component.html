@@ -1,0 +1,192 @@
+<div class="dashboard-shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <a class="brand" href="#overview" aria-label="Northstar home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 3.5 19.3 12.7 28.5 16l-9.2 3.3L16 28.5l-3.3-9.2L3.5 16l9.2-3.3L16 3.5Z" fill="currentColor"/><circle cx="16" cy="16" r="3" fill="#172A3A"/></svg>
+      </span>
+      <span class="brand-name">northstar<span>.</span></span>
+    </a>
+
+    <div class="workspace-switcher">
+      <span class="workspace-avatar">S</span>
+      <span class="workspace-copy"><strong>Studio North</strong><small>Free workspace</small></span>
+      <svg class="chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    </div>
+
+    <span class="nav-label">WORKSPACE</span>
+    <nav class="main-nav">
+      <a class="nav-item active" href="#overview"><span class="nav-icon" aria-hidden="true">⌂</span><span>Overview</span></a>
+      <a class="nav-item" href="#projects"><span class="nav-icon" aria-hidden="true">▦</span><span>Projects</span><span class="nav-count">4</span></a>
+      <a class="nav-item" href="#calendar"><span class="nav-icon" aria-hidden="true">▣</span><span>My tasks</span><span class="nav-dot"></span></a>
+      <a class="nav-item" href="#reports"><span class="nav-icon" aria-hidden="true">▥</span><span>Reports</span></a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-tip">
+      <span class="tip-sparkle" aria-hidden="true">✦</span>
+      <strong>A little progress<br>goes a long way.</strong>
+      <span>You're building a great week.</span>
+      <div class="tip-progress"><span></span></div>
+      <small>3 of 5 weekly goals</small>
+    </div>
+    <button class="profile-button" type="button" aria-label="Account settings">
+      <span class="profile-avatar">AM</span>
+      <span class="profile-copy"><strong>Alex Morgan</strong><small>Personal account</small></span>
+      <span class="profile-menu" aria-hidden="true">···</span>
+    </button>
+  </aside>
+
+  <main class="main-content" id="overview">
+    <header class="topbar">
+      <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>Overview</strong></div>
+      <div class="topbar-actions">
+        <label class="search-box">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8" stroke="currentColor" stroke-width="1.5"/><path d="m13.2 13.2 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="search" placeholder="Search activity..." aria-label="Search activity" [(ngModel)]="searchQuery">
+          <kbd>⌘ K</kbd>
+        </label>
+        <button class="icon-button notification-button" type="button" aria-label="Notifications">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M15.5 7.8a5.5 5.5 0 0 0-11 0c0 6-2 6-2 7.2h15c0-1.2-2-1.2-2-7.2ZM8 17h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+        <span class="today-date">{{ todayLabel }}</span>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">{{ todayLabel }} <span class="eyebrow-dot">·</span> YOUR WEEK AT A GLANCE</p>
+          <h1>Good morning, Alex <span class="wave" aria-hidden="true">✳</span></h1>
+          <p class="welcome-subtitle">Here’s what’s happening with your workspace today.</p>
+        </div>
+        <button class="primary-button" type="button" (click)="showQuickNote = !showQuickNote">
+          <span aria-hidden="true">＋</span> Quick note
+        </button>
+      </section>
+
+      @if (showQuickNote) {
+        <div class="quick-note" role="status">
+          <span class="note-icon" aria-hidden="true">✦</span>
+          <span><strong>Make today count.</strong> Pick one important task and give it your full attention.</span>
+          <button type="button" aria-label="Dismiss quick note" (click)="showQuickNote = false">×</button>
+        </div>
+      }
+
+      <section class="metrics-grid" aria-label="Workspace metrics">
+        <article class="metric-card">
+          <div class="metric-heading"><span>PROJECTS IN MOTION</span><span class="metric-icon purple">◈</span></div>
+          <div class="metric-value">12 <span class="metric-change positive">+2</span></div>
+          <p class="metric-footnote">Across 4 active projects</p>
+          <div class="mini-bars purple-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-heading"><span>FOCUS HOURS</span><span class="metric-icon mint">◷</span></div>
+          <div class="metric-value">28.5 <span class="metric-unit">hrs</span></div>
+          <p class="metric-footnote"><span class="inline-positive">↑ 12%</span> vs. last week</p>
+          <div class="mini-bars mint-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-heading"><span>TASKS COMPLETED</span><span class="metric-icon peach">✓</span></div>
+          <div class="metric-value">{{ completedTaskCount }} <span class="metric-unit">/ 18</span></div>
+          <p class="metric-footnote"><span class="inline-positive">You're on track</span> for this week</p>
+          <div class="mini-progress"><span [style.width.%]="(completedTaskCount / 18) * 100"></span></div>
+        </article>
+        <article class="metric-card">
+          <div class="metric-heading"><span>TEAM MOMENTUM</span><span class="metric-icon blue">↗</span></div>
+          <div class="metric-value">94<span class="metric-unit">%</span> <span class="metric-change positive">+6%</span></div>
+          <p class="metric-footnote">Your team is on a roll</p>
+          <div class="momentum-avatars" aria-label="Four teammates active"><span>JD</span><span>MK</span><span>SL</span><span>+2</span></div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel focus-panel" id="reports">
+          <div class="panel-heading">
+            <div><p class="panel-kicker">YOUR OUTPUT</p><h2>Focus time</h2></div>
+            <div class="range-switch" role="group" aria-label="Focus time range">
+              <button type="button" [class.selected]="selectedRange === '7 days'" (click)="selectRange('7 days')">7 days</button>
+              <button type="button" [class.selected]="selectedRange === '30 days'" (click)="selectRange('30 days')">30 days</button>
+              <button type="button" [class.selected]="selectedRange === '90 days'" (click)="selectRange('90 days')">90 days</button>
+            </div>
+          </div>
+          <div class="chart-summary"><strong>{{ rangeTotal }}</strong><span>hours focused</span><span class="chart-trend">↗ 12.8%</span></div>
+          <div class="chart" role="img" [attr.aria-label]="'Focus time for ' + selectedRange">
+            <div class="chart-gridlines" aria-hidden="true"><span>8h</span><span>6h</span><span>4h</span><span>2h</span><span>0h</span></div>
+            <div class="chart-columns">
+              @for (point of chartPoints; track point.label) {
+                <div class="chart-column">
+                  <div class="bar-wrap"><div class="chart-bar" [class.bar-highlight]="point.highlight" [style.height.%]="point.value / 8 * 100"><span class="bar-tooltip">{{ point.value }}h</span></div></div>
+                  <span class="chart-label">{{ point.label }}</span>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="chart-legend"><span class="legend-dot"></span> Focus hours <span class="chart-note">You’re most focused on Wednesdays</span></div>
+        </article>
+
+        <article class="panel tasks-panel" id="calendar">
+          <div class="panel-heading">
+            <div><p class="panel-kicker">STAY IN YOUR FLOW</p><h2>Today's priorities</h2></div>
+            <button class="text-button" type="button" (click)="showAllTasks = !showAllTasks">{{ showAllTasks ? 'Show less' : 'View all' }} <span aria-hidden="true">→</span></button>
+          </div>
+          <p class="tasks-date">A few things to move forward today</p>
+          <div class="task-list">
+            @for (task of visibleTasks; track task.title) {
+              <button class="task-row" type="button" [class.task-done]="task.done" [attr.aria-pressed]="task.done" (click)="toggleTask(task)">
+                <span class="task-check" aria-hidden="true">{{ task.done ? '✓' : '' }}</span>
+                <span class="task-copy"><strong>{{ task.title }}</strong><small>{{ task.project }}</small></span>
+                <span class="task-time">{{ task.time }}</span>
+              </button>
+            }
+          </div>
+          <div class="tasks-footer"><span class="task-footer-check">✓</span> {{ completedTaskCount }} of 18 tasks completed this week</div>
+        </article>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel projects-panel" id="projects">
+          <div class="panel-heading">
+            <div><p class="panel-kicker">KEEP THE MOMENTUM</p><h2>Active projects</h2></div>
+            <button class="text-button" type="button">All projects <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="project-list">
+            <div class="project-row">
+              <span class="project-mark project-lilac">✳</span>
+              <div class="project-info"><strong>Website redesign</strong><small>12 of 16 tasks complete</small></div>
+              <div class="project-progress"><span style="width: 75%"></span></div><strong class="project-percent">75%</strong>
+            </div>
+            <div class="project-row">
+              <span class="project-mark project-peach">◈</span>
+              <div class="project-info"><strong>Q4 content strategy</strong><small>8 of 12 tasks complete</small></div>
+              <div class="project-progress"><span style="width: 67%"></span></div><strong class="project-percent">67%</strong>
+            </div>
+            <div class="project-row">
+              <span class="project-mark project-mint">✦</span>
+              <div class="project-info"><strong>Product launch</strong><small>5 of 14 tasks complete</small></div>
+              <div class="project-progress"><span style="width: 36%"></span></div><strong class="project-percent">36%</strong>
+            </div>
+          </div>
+        </article>
+        <article class="panel activity-panel">
+          <div class="panel-heading">
+            <div><p class="panel-kicker">THE LATEST</p><h2>Team activity</h2></div>
+            <span class="live-indicator"><i></i> Live</span>
+          </div>
+          <div class="activity-list">
+            @for (activity of filteredActivities; track activity.name + activity.action) {
+              <div class="activity-row">
+                <span class="activity-avatar" [class]="activity.avatarClass">{{ activity.initials }}</span>
+                <p><strong>{{ activity.name }}</strong> {{ activity.action }} <b>{{ activity.target }}</b><small>{{ activity.when }}</small></p>
+              </div>
+            } @empty {
+              <p class="empty-state">No activity matches “{{ searchQuery }}”. Try another search.</p>
+            }
+          </div>
+        </article>
+      </section>
+
+      <footer class="page-footer"><span>Made for meaningful work.</span><span>Have a lovely, focused day <span aria-hidden="true">✦</span></span></footer>
+    </div>
+  </main>
+</div>

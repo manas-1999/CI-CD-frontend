@@ -1,0 +1,59 @@
+# This is a Kubernetes deployment configuration for an Angular application
+
+apiVersion:apps/v1
+kind: Deployment
+metadata:
+  name: my-frontend-deployment
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: my-frontend-pod
+  template:
+    metadata:
+      labels:
+        app: my-frontend-pod
+    spec:
+      containers:
+      - name: angular-container
+        image: my-angular-app:latest
+        ports:
+        - containerPort: 80
+
+---
+
+# The Internal Router (the service)
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end-service
+spec:
+  selector:
+    app: my-frontend-pod
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 80
+
+---
+# The Ingress resource to expose the service externally
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: front-end-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: angularfront.duckdns.org
+    http:
+      paths:
+        pathType: Prefix
+        backend:
+          service:
+            name: front-end-service
+            port:
+              number: 8000
+    

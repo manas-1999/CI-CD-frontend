@@ -1,0 +1,56 @@
+name: ReqFlow AI Frontend Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+# REQUIRED: This block allows GitHub to securely generate the handshake token for Workload Identity Federation
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy-frontend:
+    name: Build & Deploy Angular to GKE
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: 2. Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          # Paste the long string you copied from GCP here:
+          workload_identity_provider: 'projects/16101582717/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github-actions-bot@project-c1d6d306-4dd0-4dc9-b67.iam.gserviceaccount.com'
+
+      - name: 3. Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 4. Configure Docker for Artifact Registry
+        run: |
+          gcloud auth configure-docker asia-south1-docker.pkg.dev
+
+      - name: 5. Build and Push Angular Frontend
+        env:
+          # Your specific Artifact Registry path: location / project ID / repository name / image name
+          IMAGE_PATH: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/frontend-angular:latest
+        run: |
+          docker build -t $IMAGE_PATH ./frontend
+          docker push $IMAGE_PATH
+
+      - name: 6. Connect to Kubernetes (GKE)
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          # Update these with your actual GKE cluster details:
+          cluster_name: 'frontend-cluster'
+          location: 'asia-south1' 
+
+      - name: 7. Deploy Frontend YAML to Cluster
+        run: |
+          kubectl apply -f kubernetes/angular-frontend.yaml
+          
+          # Force Kubernetes to drop the old Pods and pull the new image
+          kubectl rollout restart deployment reqflow-angular-frontend
