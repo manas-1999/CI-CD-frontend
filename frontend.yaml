@@ -1,6 +1,6 @@
 # This is a Kubernetes deployment configuration for an Angular application
 
-apiVersion:apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-frontend-deployment
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: angular-container
-        image: my-angular-app:latest
+        image: sia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/reqflow-angular:latest
         ports:
         - containerPort: 80
 
