@@ -36,7 +36,7 @@ jobs:
       - name: 5. Build and Push Angular Frontend
         env:
           # Your specific Artifact Registry path: location / project ID / repository name / image name
-          IMAGE_PATH: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/frontend-angular:latest
+          IMAGE_PATH: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/reqflow-angular:latest
         run: |
           docker build -t $IMAGE_PATH .
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin asia-south1-docker.pkg.dev
