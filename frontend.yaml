@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: angular-container
-        image: sia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/reqflow-angular:latest
+        image: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/reqflow-angular:latest
         ports:
         - containerPort: 80
 
