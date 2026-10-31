@@ -50,6 +50,7 @@ spec:
   - host: angularfront.duckdns.org
     http:
       paths:
+      - path: "/"
         pathType: Prefix
         backend:
           service:
