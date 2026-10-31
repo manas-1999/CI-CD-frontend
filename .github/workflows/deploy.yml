@@ -24,8 +24,8 @@ jobs:
         with:
           # Paste the long string you copied from GCP here:
           workload_identity_provider: 'projects/16101582717/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
-          service_account: 'github-actions-bot@project-c1d6d306-4dd0-4dc9-b67.iam.gserviceaccount.com'
-
+          service_account: 'git-hub-actions-bot@project-c1d6d306-4dd0-4dc9-b67.iam.gserviceaccount.com'
+          
       - name: 3. Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
