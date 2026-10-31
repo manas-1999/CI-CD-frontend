@@ -38,7 +38,7 @@ jobs:
           # Your specific Artifact Registry path: location / project ID / repository name / image name
           IMAGE_PATH: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/frontend-angular:latest
         run: |
-          docker build -t $IMAGE_PATH ./frontend
+          docker build -t $IMAGE_PATH .
           docker push $IMAGE_PATH
 
       - name: 6. Connect to Kubernetes (GKE)
