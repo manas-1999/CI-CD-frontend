@@ -31,7 +31,7 @@ jobs:
 
       - name: 4. Configure Docker for Artifact Registry
         run: |
-          gcloud auth configure-docker asia-south1-docker.pkg.dev
+          gcloud auth configure-docker asia-south1-docker.pkg.dev --quiet
 
       - name: 5. Build and Push Angular Frontend
         env:
@@ -39,6 +39,7 @@ jobs:
           IMAGE_PATH: asia-south1-docker.pkg.dev/project-c1d6d306-4dd0-4dc9-b67/front-end/frontend-angular:latest
         run: |
           docker build -t $IMAGE_PATH .
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin asia-south1-docker.pkg.dev
           docker push $IMAGE_PATH
 
       - name: 6. Connect to Kubernetes (GKE)
